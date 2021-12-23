@@ -123,3 +123,14 @@ VariableDeclarationList
   | VariableDeclaration
   ;
 ```
+
+```
+VariableDeclaration
+  : IDENTIFIER VariableInitializer
+  ;
+```
+```
+VariableInitializer
+  : PrimaryExpression
+  ;
+```
