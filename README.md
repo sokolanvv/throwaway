@@ -101,7 +101,7 @@ ParanthisizedPrimary
 
 ```
 AssignmentTarget
-  : Identifier
+  : IDENTIFIER
   ;
 ```
 
