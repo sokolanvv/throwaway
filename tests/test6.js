@@ -300,4 +300,27 @@ module.exports = test => {
       }
     ]
   })
+
+  test(`
+    (2) + (2);
+  `, {
+    type: "Program",
+    body: [
+      {
+        type: "ExpressionStatement",
+        expression: {
+          type: "BinaryExpression",
+          operator: "PLUS",
+          left: {
+            type: "NumericLiteral",
+            value: 2
+          },
+          right: {
+            type: "NumericLiteral",
+            value: 2
+          }
+        }
+      }
+    ]
+  })
 }

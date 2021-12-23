@@ -7,14 +7,15 @@ const tests = [
   require('./tests/test3.js'),
   require('./tests/test4.js'),
   require('./tests/test5.js'),
-  require('./tests/test6.js')
+  require('./tests/test6.js'),
+  require('./tests/test7.js')
 ];
 
 const parser = new Parser();
 
 function exec() {
   const program = `
-   ( 2 +2 )* (2 + 2);
+   g += x + 13;
   `;
 
   const ast = parser.parse(program);

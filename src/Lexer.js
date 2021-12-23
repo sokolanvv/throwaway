@@ -10,6 +10,13 @@ const specification = [
   [/^\(/, 'PAROPEN'],
   [/^\)/, 'PARCLOSE'],
 
+  [/^\=/, 'ASSIGN'],
+
+  [/^\+\=/, 'ASSIGN_ADD'],
+  [/^\-\=/, 'ASSIGN_REM'],
+  [/^\*\=/, 'ASSIGN_MUL'],
+  [/^\\\=/, 'ASSIGN_DIV'],
+
   [/^\+/, 'PLUS'],
   [/^\-/, 'MINUS'],
   [/^\*/, 'MULT'],
@@ -23,7 +30,9 @@ const specification = [
 
   [/^\d+/, 'INTEGER'],
 
-  [/^\"[^\"]*\"|\'[^\']*\'/, 'STRING'],
+  [/^\w[0-9\w]*/, 'IDENTIFIER'],
+
+  [/^\"[^\"]*\"|\'[^\']*\'/, 'STRING']
 ];
 
 class Lexer {

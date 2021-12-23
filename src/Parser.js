@@ -82,7 +82,43 @@ class Parser {
   //  ;
 
   Expression() {
-    return this.BinAddExpression();
+    return this.AssignmentExpression();
+  }
+
+  AssignmentExpression() {
+    let left = this.BinAddExpression();
+
+    if ([
+      'ASSIGN', 'ASSIGN_ADD', 
+      'ASSIGN_REM', 'ASSIGN_MUL', 
+      'ASSIGN_DIV',
+    ].includes(this.right.type)) {
+      const opType = this.right.type;
+      this.consume(this.right.type);
+
+      left = this.validateCanAssign(left);
+
+      return {
+        type: 'AssignmentExpression',
+        operator: opType,
+        left,
+        right: this.AssignmentExpression()
+      }
+    } else {
+      return left;
+    }
+  }
+
+  AssignmentTarget() {
+    return this.Identifier();
+  }
+
+  validateCanAssign(node) {
+    if (node.type === 'Identifier') {
+      return node;
+    }
+
+    throw new SyntaxError(`Invalid assignment target!`);
   }
 
   BinMultExpression() {
@@ -118,11 +154,14 @@ class Parser {
   }
 
   PrimaryExpression() {
+    if (this.isLiteral(this.right)) {
+      return this.Literal();
+    }
     switch (this.right.type) {
       case ('PAROPEN'):
         return this.ParanthesisedPrimary();
       default: 
-        return this.Literal();
+        return this.AssignmentTarget();
     }
   }
 
@@ -131,6 +170,14 @@ class Parser {
     const expression = this.Expression();
     this.consume('PARCLOSE');
     return expression;
+  }
+
+  Identifier() {
+    const token = this.consume('IDENTIFIER');
+    return {
+      type: 'Identifier',
+      value: token.value
+    }
   }
 
   Literal() {
@@ -146,6 +193,14 @@ class Parser {
       default:
         throw new SyntaxError(`Unexpected literal! Got: ${this.right.type}`)
     }
+  }
+
+  isLiteral(token) {
+    return [
+      'INTEGER', 'BIN',
+      'OCT', 'HEX', 'FLOAT',
+      'STRING'
+    ].includes(token.type);
   }
 
   StringLiteral() {
