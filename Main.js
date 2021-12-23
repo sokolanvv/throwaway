@@ -8,14 +8,15 @@ const tests = [
   require('./tests/test4.js'),
   require('./tests/test5.js'),
   require('./tests/test6.js'),
-  require('./tests/test7.js')
+  require('./tests/test7.js'),
+  require('./tests/test8.js')
 ];
 
 const parser = new Parser();
 
 function exec() {
   const program = `
-   g += x + 13;
+   let x = y = 12;
   `;
 
   const ast = parser.parse(program);
