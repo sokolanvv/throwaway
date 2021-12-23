@@ -9,6 +9,7 @@ module.exports = test => {
         declarations: [
           {
             type: 'VariableDeclaration',
+            sub: 'DECLARE_LET',
             id: {
               type: 'Identifier',
               value: 'x'
@@ -33,6 +34,7 @@ module.exports = test => {
         declarations: [
           {
             type: 'VariableDeclaration',
+            sub: 'DECLARE_LET',
             id: {
               type: 'Identifier',
               value: 'x'
@@ -54,6 +56,7 @@ module.exports = test => {
         declarations: [
           {
             type: 'VariableDeclaration',
+            sub: 'DECLARE_LET',
             id: {
               type: 'Identifier',
               value: 'x'
@@ -62,6 +65,7 @@ module.exports = test => {
           },
           {
             type: 'VariableDeclaration',
+            sub: 'DECLARE_LET',
             id: {
               type: 'Identifier',
               value: 'y'
@@ -83,17 +87,16 @@ module.exports = test => {
         declarations: [
           {
             type: 'VariableDeclaration',
+            sub: 'DECLARE_LET',
             id: {
               type: 'Identifier',
               value: 'x'
             },
-            init: {
-              type: 'NumericLiteral',
-              value: 12
-            }
+            init: null
           },
           {
             type: 'VariableDeclaration',
+            sub: 'DECLARE_LET',
             id: {
               type: 'Identifier',
               value: 'y'

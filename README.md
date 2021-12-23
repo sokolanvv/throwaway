@@ -113,7 +113,7 @@ BlockStatement
 
 ```
 VariableDeclarationStatement
-  : DECLARE_LET | DECLARE_CONST | DECLARE_VAR VariableDeclarationList
+  : DECLARE_LET | DECLARE_CONST | DECLARE_VAR VariableDeclarationList SEMICOLON
   ;
 ```
 

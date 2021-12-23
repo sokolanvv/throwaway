@@ -1,3 +1,4 @@
+const { Console } = require("console");
 const { Lexer } = require("./Lexer");
 
 class Parser {
@@ -47,6 +48,7 @@ class Parser {
     const decType = this.right.type;
     this.consume(decType);
     const declarations = this.VariableDeclarationList(decType);
+    this.consume('SEMICOLON');
 
     return {
       type: 'VariableDeclarationStatement',
@@ -69,8 +71,11 @@ class Parser {
     const id = this.Identifier();
 
     let init;
-    if (['SEMICOLON', 'COMMA'].includes(this.right.type)) init = null;
-    init = this.VariableInitializer();
+    if (['SEMICOLON', 'COMMA'].includes(this.right.type)) {
+      init = null;
+    } else {
+      init = this.VariableInitializer();
+    }
 
     return {
       type: 'VariableDeclaration',
@@ -120,14 +125,17 @@ class Parser {
   AssignmentExpression() {
     let left = this.BinAddExpression();
 
+    console.log(this.right.type);
     if ([
       'ASSIGN', 'ASSIGN_ADD', 
       'ASSIGN_REM', 'ASSIGN_MUL', 
       'ASSIGN_DIV',
     ].includes(this.right.type)) {
+      console.log("shid2")
       const opType = this.right.type;
       this.consume(this.right.type);
 
+      console.log("shid")
       left = this.validateCanAssign(left);
 
       return {
