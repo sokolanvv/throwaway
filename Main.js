@@ -14,10 +14,7 @@ const parser = new Parser();
 
 function exec() {
   const program = `
-    {
-      42;
-      "cumballs"; 'stink souls';
-    }
+   ( 2 +2 )* (2 + 2);
   `;
 
   const ast = parser.parse(program);
@@ -25,8 +22,8 @@ function exec() {
   console.log(JSON.stringify(ast, null, 2));
 }
 
-// exec();
-// exit(0);
+exec();
+exit(0);
 
 function test(prog, expect) {
   const ast = parser.parse(prog);

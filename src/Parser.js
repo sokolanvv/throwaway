@@ -118,7 +118,19 @@ class Parser {
   }
 
   PrimaryExpression() {
-    return this.Literal();
+    switch (this.right.type) {
+      case ('PAROPEN'):
+        return this.ParanthesisedPrimary();
+      default: 
+        return this.Literal();
+    }
+  }
+
+  ParanthesisedPrimary() {
+    this.consume('PAROPEN');
+    const expression = this.Expression();
+    this.consume('PARCLOSE');
+    return expression;
   }
 
   Literal() {

@@ -7,6 +7,8 @@ const specification = [
 
   [/^{/, 'CURLOPEN'],
   [/^}/, 'CURLCLOSE'],
+  [/^\(/, 'PAROPEN'],
+  [/^\)/, 'PARCLOSE'],
 
   [/^\+/, 'PLUS'],
   [/^\-/, 'MINUS'],
