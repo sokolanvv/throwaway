@@ -36,8 +36,52 @@ class Parser {
     switch (this.right.type) {
       case 'SEMICOLON': return this.EmptyStatement();
       case 'CURLOPEN': return this.BlockStatement();
+      case 'DECLARE_LET': return this.VariableDeclarationStatement();
+      case 'DECLARE_CONST': return this.VariableDeclarationStatement();
+      case 'DECLARE_VAR': return this.VariableDeclarationStatement();
       default: return this.ExpressionStatement();
     }
+  }
+
+  VariableDeclarationStatement() {
+    const decType = this.right.type;
+    this.consume(decType);
+    const declarations = this.VariableDeclarationList(decType);
+
+    return {
+      type: 'VariableDeclarationStatement',
+      declarations
+    }
+  }
+
+  VariableDeclarationList(decType) {
+    const decList = [this.VariableDeclaration(decType)];
+
+   while (this.right.type === 'COMMA') {
+     this.consume('COMMA');
+     decList.push(this.VariableDeclaration(decType));
+   } 
+
+   return decList;
+  }
+
+  VariableDeclaration(decType) {
+    const id = this.Identifier();
+
+    let init;
+    if (['SEMICOLON', 'COMMA'].includes(this.right.type)) init = null;
+    init = this.VariableInitializer();
+
+    return {
+      type: 'VariableDeclaration',
+      sub: decType,
+      id, init
+    }
+  }
+
+  VariableInitializer() {
+    this.consume('ASSIGN');
+    return this.AssignmentExpression();
   }
 
   EmptyStatement() {
@@ -68,18 +112,6 @@ class Parser {
       body
     }
   }
-
-  // Expression
-  //  : BinExpression
-  //  ;
-
-  // BinExpression
-  //  : Literal
-  //  | PlusExpression
-  //  | MinusExpression
-  //  | MultExpression
-  //  | DivExpression
-  //  ;
 
   Expression() {
     return this.AssignmentExpression();

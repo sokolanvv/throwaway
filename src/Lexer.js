@@ -3,7 +3,12 @@ const specification = [
   [/^\/\/.*/, null],
   [/^\/\*[\s\S]*?\*\//, null],
 
+  [/^\blet\b/, 'DECLARE_LET'],
+  [/^\bconst\b/, 'DECLARE_CONST'],
+  [/^\bvar\b/, 'DECLARE_VAR'],
+
   [/^;/, 'SEMICOLON'],
+  [/^\,/, 'COMMA'],
 
   [/^{/, 'CURLOPEN'],
   [/^}/, 'CURLCLOSE'],

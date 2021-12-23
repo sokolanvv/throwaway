@@ -131,6 +131,6 @@ VariableDeclaration
 ```
 ```
 VariableInitializer
-  : PrimaryExpression
+  : ASSIGN AssignmentExpression
   ;
 ```
