@@ -1,4 +1,4 @@
-# JavaScript Parser written \w JS
+# JavaScript Parser written \w NodeJS (v15.14.0)
 
 # DOCS (decided to move to README)
 

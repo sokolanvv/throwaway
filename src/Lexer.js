@@ -41,9 +41,10 @@ const specification = [
 ];
 
 class Lexer {
-  init(string) {
+  init(string, line) {
     this.string = string;
     this.cursor = 0;
+    this.line = line;
   }
 
   hasMoreTokens() { return this.cursor < this.string.length; }
